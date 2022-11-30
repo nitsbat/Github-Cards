@@ -2,6 +2,7 @@
 
 My First app using react. already proficient in ANgular but switched to React for a recent project.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can see the app deployement here :  https://nitsbat.github.io/Github-Cards/
 
 ## Available Scripts
 
