@@ -37,5 +37,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://nitsbat.github.io/Github-Cards"
+  "homepage": "http://nitsbat.github.io/Github-Cards",
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
