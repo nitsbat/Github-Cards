@@ -15,11 +15,29 @@ class App extends React.Component {
         <div className="App-header">
           <HeaderTitle />
         </div>
+        <Form className='form' />
         <div className='cardArea'>
           <CardList profileList={testData} />
         </div>
       </div>
     );
+  }
+}
+
+class Form extends React.Component {
+
+  handleApi(event){
+    event.preventDefault();
+    console.log("i am inside");
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleApi}>
+        <input placeholder='Enter github username..??' style={{fontSize: "1.2rem"}} />
+        <button style={{marginLeft: "1.2rem"}}>Add Card</button>
+      </form>
+    )
   }
 }
 
@@ -29,9 +47,7 @@ function HeaderTitle() {
 }
 
 class CardList extends React.Component {
-  state = [];
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.props.profileList.map((profile) => <Card key={profile.id} {...profile} />)}
@@ -41,14 +57,17 @@ class CardList extends React.Component {
 }
 
 class Card extends React.Component {
+  constructor(props){
+    super(props);
+    this.profile = props;
+  }
   render() {
-    const profile = this.props;
     return (
       <div className='github-profile'>
-        <img src={profile.avatar_url} alt='Good Vibes' />
+        <img src={this.profile.avatar_url} alt='Good Vibes' />
         <div className='info'>
-          <div className='name'> Name : {profile.name}</div>
-          <div className='company'> Company : {profile.company}</div>
+          <div className='name'> Name : {this.profile.name}</div>
+          <div className='company'> Company : {this.profile.company}</div>
         </div>
       </div>
     )
