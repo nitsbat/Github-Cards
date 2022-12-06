@@ -9,13 +9,20 @@ const testData = [
 ];
 
 class App extends React.Component {
+
+  addNewProfile = (profileData) => {
+      console.log(profileData.name);
+      console.log(profileData.avatar_url);
+      console.log(profileData.company);
+  }
+
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <HeaderTitle />
         </div>
-        <Form className='form' />
+        <Form className='form' onSubmit={this.addNewProfile} />
         <div className='cardArea'>
           <CardList profileList={testData} />
         </div>
@@ -26,16 +33,28 @@ class App extends React.Component {
 
 class Form extends React.Component {
 
-  handleApi(event){
+  constructor(props) {
+    super(props);
+  }
+
+  userNameInput = React.createRef();
+
+  handleApi = async (event) => {
     event.preventDefault();
-    console.log("i am inside");
+    const response = await fetch(`https://api.github.com/users/${this.userNameInput.current.value}`);
+    const data = await response.json();
+    this.props.onSubmit(data);
   }
 
   render() {
     return (
       <form onSubmit={this.handleApi}>
-        <input placeholder='Enter github username..??' style={{fontSize: "1.2rem"}} />
-        <button style={{marginLeft: "1.2rem"}}>Add Card</button>
+        <input placeholder='Enter github username..??'
+          style={{ fontSize: "1.2rem" }}
+          ref={this.userNameInput}
+          required
+        />
+        <button style={{ marginLeft: "1.2rem" }}>Add Card</button>
       </form>
     )
   }
@@ -57,7 +76,7 @@ class CardList extends React.Component {
 }
 
 class Card extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.profile = props;
   }
