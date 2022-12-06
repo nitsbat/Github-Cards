@@ -10,21 +10,25 @@ const testData = [
 
 class App extends React.Component {
 
+  state = {
+    profiles: [],
+  };
+
   addNewProfile = (profileData) => {
-      console.log(profileData.name);
-      console.log(profileData.avatar_url);
-      console.log(profileData.company);
+    this.setState((state, props) => ({ profiles: [...state.profiles, profileData] }));
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <HeaderTitle />
-        </div>
-        <Form className='form' onSubmit={this.addNewProfile} />
-        <div className='cardArea'>
-          <CardList profileList={testData} />
+      <div className='Main'>
+        <div className="App">
+          <div className="App-header">
+            <HeaderTitle />
+          </div>
+          <Form className='form' onSubmit={this.addNewProfile} />
+          <div className='cardArea'>
+            <CardList profileList={this.state.profiles} />
+          </div>
         </div>
       </div>
     );
@@ -49,12 +53,12 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleApi}>
-        <input placeholder='Enter github username..??'
-          style={{ fontSize: "1.2rem" }}
+        <input placeholder='Enter Github Username..??'
+          style={{ width:  "13rem" , fontSize: "0.9rem" }}
           ref={this.userNameInput}
           required
         />
-        <button style={{ marginLeft: "1.2rem" }}>Add Card</button>
+        <button style={{ width:  "5rem", marginLeft: "1.2rem" }}>Add Card</button>
       </form>
     )
   }
